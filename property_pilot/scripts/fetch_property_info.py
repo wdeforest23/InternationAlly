@@ -12,12 +12,6 @@ from shapely.geometry import Point
 import warnings
 warnings.filterwarnings('ignore')
 
-url = "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch"
-
-headers = {
-	"X-RapidAPI-Key": "735ee1fb05msh1468bdaed52d0a8p1c49cejsne0c7c5aea57a",
-	"X-RapidAPI-Host": "zillow-com1.p.rapidapi.com"
-}
 
 def fetch_data_if_chicago(search_filter, url, headers):
     """
