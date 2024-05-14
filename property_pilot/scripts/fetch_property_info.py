@@ -12,7 +12,6 @@ from shapely.geometry import Point
 import warnings
 warnings.filterwarnings('ignore')
 
-
 def fetch_data_if_chicago(search_filter, url, headers):
     """
     Checks if the 'location' field of the property information ends with 'chicago, il'.
