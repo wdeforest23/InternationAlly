@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import geopandas as gpd
+from shapely.geometry import Point
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -172,6 +174,14 @@ def merge_property_and_restaurant_info(properties, restaurants):
         merged_data.append(merged_property)
 
     return merged_data
+
+def load_neighborhood_boundaries(neighborhood_boundaries_path):
+    neighborhoods = gpd.read_file(neighborhood_boundaries_path)
+    return neighborhoods
+
+def load_neighborhood_info(neighborhood_info_path):
+    neighborhood_info = pd.read_csv(neighborhood_info_path)       
+    return neighborhood_info
 
 def fetch_neighborhood(top_properties, neighborhoods):
     for i in range(0, 3):
