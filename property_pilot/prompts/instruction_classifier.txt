@@ -6,7 +6,6 @@ Provide only the number as your answer. Do not include any other explanations in
 - If the question is about searching for rentals or real estate: output "1".
 - If the question is about restaurant information: output "2".
 - If the question is about Chicago local information (e.g., neighborhoods, schools, transportation): output "3".
-- If there is sufficient information from the current or recent conversations related to a specific property regarding restaurants or Chicago local information, then output "4".
 - For any other questions: output "0".
 
 Now, use the following query to determine the number.
@@ -48,54 +47,6 @@ What is the nearest station to Lincoln Park?
 
 ### Example Output ###
 3
-
-
-### Example query ### 
-"Is this property close to public transportation facilities?"
-
-*Option*
-- Address: **938 W 34th St, Chicago, IL 60608**
-- Price: **$1,300**
-- Bedrooms: **2**
-- Bathrooms: **1**
-- Link: https://www.zillow.com/homedetails/938-W-34th-St-Chicago-IL-60608/2103556011_zpid/
-- Image: https://photos.zillowstatic.com/fp/39271ea4416452453259cd89b55d1170-p_e.jpg
-- Description: Sunny two-bedroom, one-bathroom apartment in vintage Bridgeport 6-flat. Offers new kitchen, hardwood floors, high ceilings, and more. 
-- Resofacts:
-    - Has Garage: False
-    - Has Pets Allowed: Yes
-    - Living Area: 600 sqft
-    - Annual tax amount: $25
-- Schools: 
-    - Armour Elementary School (Rating:6, Grades PK-8, Public)
-    - Tilden Career Community Academy High School (Rating: 1, Grades 9-12, Public)
-- Restaurants nearby:
-    - Franco's Ristorante (Italian, 4.4 stars): https://www.yelp.com/biz/francos-ristorante-chicago?adjust_creative=GgXKz4qBvfURJxuhy6g81Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=GgXKz4qBvfURJxuhy6g81Q
-    - Gio's Cafe & Deli (Delis & Italian, 4.3 stars): https://www.yelp.com/biz/gios-cafe-and-deli-chicago?adjust_creative=GgXKz4qBvfURJxuhy6g81Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=GgXKz4qBvfURJxuhy6g81Q
-
-### Example Output ###
-4
-
-
-### Example query ### 
-"Can you recommend some good schools near this property?"
-
-*Option*
-- Address: **2701 S Indiana Ave, Chicago, IL**
-- Price: *$2,000**
-- Bedrooms: **1**
-- Bathrooms: **1**
-- Link: https://www.zillow.com/apartments/chicago-il/eden-commons/5XjNY3/
-- Image: https://photos.zillowstatic.com/fp/c533fb4ba892997a014b728e64db7108-p_e.jpg
-- Description: No description available
-- Resofacts: Unavailable
-- Schools: Unavailable
-- Restaurants nearby:
-    - Franco's Ristorante (Italian, 4.4 stars): https://www.yelp.com/biz/francos-ristorante-chicago?adjust_creative=GgXKz4qBvfURJxuhy6g81Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=GgXKz4qBvfURJxuhy6g81Q
-    - Il Culaccino (Italian, 4.0 stars): https://www.yelp.com/biz/il-culaccino-chicago-2?adjust_creative=GgXKz4qBvfURJxuhy6g81Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=GgXKz4qBvfURJxuhy6g81Q
-
-### Example Output ###
-4
 
 
 ### Example query ###
