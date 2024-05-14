@@ -1,7 +1,23 @@
 import pandas as pd
 import numpy as np
+import requests
+
+import vertexai
+from vertexai.preview.generative_models import GenerativeModel, ChatSession, Part
+import vertexai.preview.generative_models as generative_models
+
+import geopandas as gpd
+from shapely.geometry import Point
+
 import warnings
 warnings.filterwarnings('ignore')
+
+url = "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch"
+
+headers = {
+	"X-RapidAPI-Key": "735ee1fb05msh1468bdaed52d0a8p1c49cejsne0c7c5aea57a",
+	"X-RapidAPI-Host": "zillow-com1.p.rapidapi.com"
+}
 
 def fetch_data_if_chicago(search_filter, url, headers):
     """
@@ -173,6 +189,14 @@ def merge_property_and_restaurant_info(properties, restaurants):
 
     return merged_data
 
+def load_neighborhood_boundaries(neighborhood_boundaries_path):
+    neighborhoods = gpd.read_file(neighborhood_boundaries_path)
+    return neighborhoods
+
+def load_neighborhood_info(neighborhood_info_path):
+    neighborhood_info = pd.read_csv(neighborhood_info_path)       
+    return neighborhood_info
+
 def fetch_neighborhood(top_properties, neighborhoods):
     for i in range(0, 3):
         latitude = top_properties[i]['latitude']
@@ -180,15 +204,14 @@ def fetch_neighborhood(top_properties, neighborhoods):
         point = gpd.GeoDataFrame([{'geometry': Point(longitude, latitude)}], crs='EPSG:4326')
         point = point.to_crs(neighborhoods.crs)
         point_in_neighborhood = gpd.sjoin(point, neighborhoods, how="inner", op='intersects')
-        neighborhood = point_in_neighborhood['sec_neigh'].values[0]
+        neighborhood = point_in_neighborhood['pri_neigh'].values[0]
         top_properties[i]['neighborhood'] = neighborhood
     return top_properties
 
-def fetch_neighborhood_description(top_properties, neighborhood_info):
+def fetch_neighborhood_info(top_properties, neighborhood_info):
     neighborhood_info['neighborhood'] = neighborhood_info['neighborhood'].str.upper()
     for i in range(0, 3):
         neighborhood = top_properties[i]['neighborhood']
-        print(neighborhood)
         try:
             neighborhood_description = neighborhood_info[neighborhood_info['neighborhood'] == neighborhood]['neighborhood_information'].values[0]
         except:
