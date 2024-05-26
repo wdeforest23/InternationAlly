@@ -1,6 +1,6 @@
 # PropertyPilot: Your Personal Real Estate Search and Advisor
 
-You have landed on the README file of PropertyPilot. It is still work in progress.
+You have landed on the README file of PropertyPilot. It is still work in progress. See you in the next quarter.
 
 # Developed with :heart: by:
 
