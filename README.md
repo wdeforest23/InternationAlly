@@ -53,7 +53,16 @@ In order to provide more detailed information, we plan to focus on Chicago initi
 
 ## Next Steps
 
-TBU
+- Build out Streamlit: Develop a Streamlit application to provide an interactive user interface.
+- Multi-modal LLM Integration: Utilize multi-modal large language models to describe property images with nuanced details.
+- Real Estate Advisor Fine-tuning: Fine-tune the real estate advisor model to answer a broader range of real estate-related questions more accurately and helpfully.
+- Retrieval-Augmented Generation (RAG): Implement RAG for various use cases to improve the quality of information provided.
+- Search Result Priority: Prioritize search results based on user queries to improve relevance and user satisfaction.
+- User Profile and Recommendations: Develop user profiles and recommendation systems to offer personalized advice and property suggestions.
+- Flexible API Filters: Implement more flexible API filters to handle additional user requests during conversations, such as finding cheaper apartments.
+- Google Map API Integration: Integrate additional information from the Google Map API for enhanced local details.
+- Database Development: Build databases for additional property information and local information to provide comprehensive insights.
+- Cost/Token Reduction: Optimize the system to reduce costs and token usage, ensuring efficiency and sustainability.
 
 ## Summary
 
