@@ -31,7 +31,25 @@ In order to provide more detailed information, we plan to focus on Chicago initi
 
 ## Demo
 
-TBU
+- **Initial Search:** "I am looking to purchase a house in Gold Coast, Chicago. I would like to have a minimum 3 bedrooms and 3 bathrooms. I want to pay less than $3,000,000."
+
+![response_1](images/response_1.png)
+
+- **Inquiry about a Specific Property:** "Can you tell me more about the house on Cedar St?"
+
+![response_2](images/response_2.png)
+
+- **Neighborhood Information:** "Which neighborhood is the third house located in? Tell me more about that neighborhood."
+
+![response_3](images/response_3.png)
+
+- **Nearby Schools:** "What are some good schools nearby the third house?"
+
+![response_4](images/response_4.png)
+
+- **Restaurant Recommendations:** "What restaurants are nearby the house? Please provide me with the yelp link"
+
+![response_5](images/response_5.png)
 
 ## Next Steps
 
