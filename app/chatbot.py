@@ -107,10 +107,10 @@ def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_b
     intent_int = intent_classifier(chat, prompts_dict, user_query)
     
     if intent_int == 1:
-        print(chat_property(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries))
+        return chat_property(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries), intent_int
     elif intent_int == 2:
-        print(chat_yelp(chat, prompts_dict, user_query))
+        return chat_yelp(chat, prompts_dict, user_query), intent_int
     elif intent_int == 3:
-        print(chat_neighborhood(chat, prompts_dict, user_query, vector_store))
+        return chat_neighborhood(chat, prompts_dict, user_query, vector_store), intent_int
     else:
-        print(get_chat_response(chat, user_query))
+        return get_chat_response(chat, user_query), intent_int
