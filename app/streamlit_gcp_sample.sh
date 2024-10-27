@@ -2,7 +2,7 @@ gcloud config set project adsp-capstone-property-pilot
 
 cd Property-Pilot
 
-cd capstone
+cd app
 
 
 # Clean-up (to get fresh experience) and remove all unused and dangling images
@@ -18,15 +18,15 @@ gcloud artifacts repositories list
 
 
 # Create a repository (if it does  not exist)
-# gcloud artifacts repositories create property-pilot-app-2 --repository-format=docker --location=us --description="PropertyPilot"
+# gcloud artifacts repositories create property-pilot-app-test --repository-format=docker --location=us --description="PropertyPilot"
 
 
 # Build Docker image
-docker image build -t us-docker.pkg.dev/adsp-capstone-property-pilot/property-pilot-app/cloud-app:latest .
+docker image build -t us-docker.pkg.dev/adsp-capstone-property-pilot/property-pilot-app-test/cloud-app:latest .
 
 
 # Push Docker image into artifact registry
-docker push us-docker.pkg.dev/adsp-capstone-property-pilot/property-pilot-app/cloud-app:latest
+docker push us-docker.pkg.dev/adsp-capstone-property-pilot/property-pilot-app-test/cloud-app:latest
 
 
 # Enable  Cloud Run API

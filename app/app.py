@@ -5,7 +5,7 @@ from chatbot import chat_all
 
 # Title and Description for the app
 st.set_page_config(page_title="PropertyPilot")
-st.title("PropertyPilot")
+st.title("PropertyPilot: InternationAlly")
 st.write("PropertyPilot is an AI-powered real estate assistant designed to assist you in your property search journey. Ask anything related to properties, neighborhoods, or real estate trends.")
 
 # Setup the bot and environment, but only once
