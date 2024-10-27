@@ -22,11 +22,11 @@ gcloud artifacts repositories list
 
 
 # Build Docker image
-docker image build -t us-docker.pkg.dev/adsp-capstone-property-pilot/property-pilot-app-test/cloud-app:latest .
+docker image build -t us-docker.pkg.dev/adsp-capstone-property-pilot/property-pilot-app/cloud-app:latest .
 
 
 # Push Docker image into artifact registry
-docker push us-docker.pkg.dev/adsp-capstone-property-pilot/property-pilot-app-test/cloud-app:latest
+docker push us-docker.pkg.dev/adsp-capstone-property-pilot/property-pilot-app/cloud-app:latest
 
 
 # Enable  Cloud Run API
