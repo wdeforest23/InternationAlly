@@ -1,3 +1,11 @@
+- <div align="center">
+  <img src="images/InternationAlly%20logo.png" alt="InternationAlly" width="200">
+</div>
+
+# <p align="center">InternationAlly</p>
+
+**InternationAlly** is an AI-powered assistant designed to simplify the transition for international students moving abroad. Developed under the **PropertyPilot** platform — a visionary initiative aiming to transform the property search and advisory process through AI-driven solutions - InternationAlly is our first specialized product offering, focusing on the unique needs of international students.
+
 ## Table of Contents
 - [1. Motivation](#1-motivation)
   - [Background](#background)
@@ -15,14 +23,7 @@
 - [8. References](#8-references)
 - [9. Acknowledgements/About Us](#9-acknowledgementsabout-us)
 
-- <div align="center">
-  <img src="images/InternationAlly%20logo.png" alt="InternationAlly" width="200">
-</div>
-
-# <p align="center">InternationAlly</p>
-
-**InternationAlly** is an AI-powered assistant designed to simplify the transition for international students moving abroad. Developed under the **PropertyPilot** platform — a visionary initiative aiming to transform the property search and advisory process through AI-driven solutions - InternationAlly is our first specialized product offering, focusing on the unique needs of international students.
-
+  
 ## 1. Motivation
 
 ### Background
