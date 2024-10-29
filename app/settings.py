@@ -21,9 +21,9 @@ def setup():
     neighborhoods_info = load_neighborhood_info(neighborhood_info_path)
     neighborhoods_boundaries = load_neighborhood_boundaries(neighborhood_boundaries_path)
     # Load vector store
-    vector_db = load_vectordb(vectordb_path)
+    vectordb = load_vectordb(vectordb_path)
 
-    return chat, prompts_dict, neighborhoods_info, neighborhoods_boundaries, vector_db
+    return chat, prompts_dict, neighborhoods_info, neighborhoods_boundaries, vectordb
 
 
 # Global Configuration

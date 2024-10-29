@@ -118,7 +118,7 @@ def chat_international(chat, prompts_dict, user_query, vectordb):
 
 
 # final
-def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, vector_store):
+def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, vectordb):
     
     intent_int = intent_classifier(chat, prompts_dict, user_query)
     
@@ -127,6 +127,6 @@ def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_b
     elif intent_int == 2:
         return chat_yelp(chat, prompts_dict, user_query), intent_int
     elif intent_int == 3:
-        return chat_international(chat, prompts_dict, user_query, vector_store), intent_int
+        return chat_international(chat, prompts_dict, user_query, vectordb), intent_int
     else:
         return get_chat_response(chat, user_query), intent_int
