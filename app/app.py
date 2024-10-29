@@ -83,13 +83,13 @@ def chat_app():
 
     # Setup the bot and environment, but only once
     if 'setup_done' not in st.session_state:
-        chat, prompts_dict, neighborhoods_info, neighborhoods_boundaries, vector_store = setup()
+        chat, prompts_dict, neighborhoods_info, neighborhoods_boundaries, vectordb = setup()
         configure_display_options()
         st.session_state.chat = chat
         st.session_state.prompts_dict = prompts_dict
         st.session_state.neighborhoods_info = neighborhoods_info
         st.session_state.neighborhoods_boundaries = neighborhoods_boundaries
-        st.session_state.vector_store = vector_store
+        st.session_state.vectordb = vectordb
         st.session_state.setup_done = True
 
     # Load or initialize chat history for the current user
@@ -114,10 +114,10 @@ def chat_app():
         prompts_dict = st.session_state.prompts_dict
         neighborhoods_info = st.session_state.neighborhoods_info
         neighborhoods_boundaries = st.session_state.neighborhoods_boundaries
-        vector_store = st.session_state.vector_store
+        vectordb = st.session_state.vectordb
 
         # Get chatbot response
-        response, intent = chat_all(chat, prompts_dict, user_input, neighborhoods_info, neighborhoods_boundaries, vector_store)
+        response, intent = chat_all(chat, prompts_dict, user_input, neighborhoods_info, neighborhoods_boundaries, vectordb)
 
         # Simulate gradual response with a spinner
         with st.chat_message("assistant"):

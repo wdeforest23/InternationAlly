@@ -25,8 +25,14 @@ RUN python -m pip install --no-cache-dir \
         python-dotenv==1.0.1 \
         vertexai \
         transformers \
-        geopandas
+        geopandas \
+        langchain==0.3.4 \
+        langchain-community==0.3.3 \
+        beautifulsoup4==4.12.3 \
+        trafilatura==1.12.2 \
+        sentence-transformers==3.2.1 \
+        faiss-cpu==1.9.0 \
+        langchain-huggingface==0.1.1
         
-
 # Start Streamlit app
 ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8080"]

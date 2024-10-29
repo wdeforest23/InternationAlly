@@ -75,6 +75,19 @@ def generate_prompt_rag_neighborhood(instruction, context, user_query):
     return instruction.replace("{USER_QUERY}", user_query)
 
 
+def generate_prompt_rag_international(instruction, context, user_query):
+    """
+    Replaces placeholders in the instruction template with the provided context and user query.
+
+    :param instruction: str - The template instruction containing placeholders for context and user query.
+    :param context: str - The context that will replace the {CONTEXT} placeholder in the instruction.
+    :param user_query: str - The user query that will replace the {USER_QUERY} placeholder in the instruction.
+    :return: str - The updated instruction with the context and user query inserted.
+    """
+    instruction = instruction.replace("{CONTEXT}", context)
+    return instruction.replace("{USER_QUERY}", user_query)
+
+
 def generate_prompt_yelp_advisor(yelp_advisor_instruction, user_query, categories_string):
     """
     Generates a Yelp advisor prompt by replacing the user query and categories string placeholders.
