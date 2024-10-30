@@ -129,3 +129,11 @@ def generate_prompt_rest_category(output_instructions, user_query, categories):
     updated_instruction = output_instructions.replace("{USER_QUERY}", user_query)
     updated_instruction = updated_instruction.replace("{CATEGORIES_STRING}", categories_string)
     return updated_instruction
+
+
+def generate_prompt_general(instructions, user_query):
+    """
+    Generates the final output by replacing placeholders with the user query.
+    """
+    updated_instruction = instructions.replace("{USER_QUERY}", user_query)
+    return updated_instruction

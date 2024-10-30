@@ -14,7 +14,8 @@ from prompt_creation import (
     generate_prompt_rag_neighborhood,
     generate_prompt_yelp_advisor,
     final_output_yelp_advisor,
-    generate_prompt_rag_international
+    generate_prompt_rag_international,
+    generate_prompt_general
 )
 from llm import get_chat_response
 from rag import get_context
@@ -117,6 +118,13 @@ def chat_international(chat, prompts_dict, user_query, vectordb):
     return response_international_final
 
 
+# functions for general response
+def chat_general(chat, prompts_dict, user_query):
+    prompt_general = generate_prompt_general(prompts_dict['instruction_general'], user_query)
+    response_general_final = get_chat_response(chat, prompt_general)
+    return response_general_final
+
+
 # final
 def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, vectordb):
     
@@ -129,4 +137,4 @@ def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_b
     elif intent_int == 3:
         return chat_international(chat, prompts_dict, user_query, vectordb), intent_int
     else:
-        return get_chat_response(chat, user_query), intent_int
+        return chat_general(chat, prompts_dict, user_query), intent_int
