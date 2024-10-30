@@ -68,7 +68,7 @@ def fetch_data_if_chicago(search_filter, url=url, headers=headers):
         return None
 
 
-def extract_properties(response, fields,  n=3):
+def extract_properties(response, fields,  n=5):
     """
     Extracts the top 'n' properties from the API response based on specified fields.
 
