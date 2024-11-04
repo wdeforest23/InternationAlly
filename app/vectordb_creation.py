@@ -9,10 +9,15 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
 from typing import List, Dict, Optional
 from langchain.schema import Document
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 import os
+from langchain_openai import OpenAIEmbeddings
+from dotenv import load_dotenv
 
+load_dotenv()
+openai_api_key = os.getenv('OPENAI_API_KEY')
+if not openai_api_key:
+    raise ValueError("OpenAI API key not found in environment variables")
 
 def fetch_web_content(url: str, verify_ssl: bool = True, timeout: int = 10) -> str:
     """
@@ -152,39 +157,59 @@ def enhance_metadata(documents: List[Document]) -> List[Document]:
     return enhanced_docs
 
 
+def init_embeddings(model: str = "text-embedding-3-small") -> OpenAIEmbeddings:
+    """
+    Initialize OpenAI embeddings model.
+    
+    Args:
+        model: Name of the OpenAI embedding model to use
+    
+    Returns:
+        OpenAIEmbeddings instance configured with the specified model
+    """
+    return OpenAIEmbeddings(
+        openai_api_key=openai_api_key,
+        model=model
+    )
+
+
 def create_and_save_vectordb(documents: List[Document], 
-                           embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+                           embeddings: OpenAIEmbeddings,
                            save_path: Optional[str] = None) -> FAISS:
     """
     Create FAISS vector database from documents and optionally save it.
     
     Args:
-        documents: List of Document objects
-        embedding_model_name: HuggingFace embedding model name
+        documents: List of Document objects to create embeddings for
+        embeddings: Configured OpenAI embeddings model instance
         save_path: Optional path to save the vector database
     
     Returns:
         FAISS vector store object
     """
-    # Initialize embedding model
-    embeddings = HuggingFaceEmbeddings(
-        model_name=embedding_model_name,
-        model_kwargs={'device': 'cpu'}
-    )
-    
-    # Create vector store
-    vectorstore = FAISS.from_documents(
-        documents=documents,
-        embedding=embeddings
-    )
-    
-    # Save if path is provided
-    if save_path:
-        os.makedirs(save_path, exist_ok=True)
-        vectorstore.save_local(save_path)
-        print(f"Vector database saved to {save_path}")
-    
-    return vectorstore
+    if not documents:
+        print("Error: Document list is empty")
+        return None
+        
+    try:
+        print("Creating vector store...")
+        vectorstore = FAISS.from_documents(
+            documents=documents,
+            embedding=embeddings
+        )
+        print("Vector store created successfully")
+        
+        if save_path:
+            os.makedirs(save_path, exist_ok=True)
+            print(f"Saving vector database to {save_path}...")
+            vectorstore.save_local(save_path)
+            print(f"Vector database saved successfully to {save_path}")
+            
+        return vectorstore
+        
+    except Exception as e:
+        print(f"Error occurred while creating vector store: {str(e)}")
+        return None
 
 
 def main():
@@ -228,11 +253,15 @@ def main():
     # Enhance metadata
     enhanced_docs = enhance_metadata(documents)
     print("\nMetadata enhancement complete")
+
+    # Initialize embeddings
+    embeddings = init_embeddings()
     
     # Create and save vector database
     base_dir = os.path.dirname(__file__)
     vectordb = create_and_save_vectordb(
         documents=enhanced_docs,
+        embeddings=embeddings,
         save_path=os.path.join(base_dir, 'data', 'vectordb')
     )
     print("\nVector database creation complete")

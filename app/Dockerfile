@@ -32,7 +32,7 @@ RUN python -m pip install --no-cache-dir \
         trafilatura==1.12.2 \
         sentence-transformers==3.2.1 \
         faiss-cpu==1.9.0 \
-        langchain-huggingface==0.1.1
-        
+        langchain-openai==0.2.5
+
 # Start Streamlit app
 ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8080"]

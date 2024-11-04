@@ -2,29 +2,34 @@ from typing import List, Dict, Optional
 from langchain.schema import Document
 import os
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_openai import OpenAIEmbeddings
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
+openai_api_key = os.getenv('OPENAI_API_KEY')
+if not openai_api_key:
+    raise ValueError("OpenAI API key not found in environment variables")
 
-def load_vectordb(load_path: str,
-                 embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2") -> FAISS:
+def load_vectordb(load_path: str, model: str = "text-embedding-3-small") -> FAISS:
     """
-    Load FAISS vector database from disk.
+    Load FAISS vector database from disk using OpenAI embeddings.
     
     Args:
         load_path: Path where the database is stored
-        embedding_model_name: HuggingFace embedding model name
+        model: OpenAI embedding model name
     
     Returns:
         FAISS vector store object
     """
-    # Initialize embedding model
-    embeddings = HuggingFaceEmbeddings(
-        model_name=embedding_model_name,
-        model_kwargs={'device': 'cpu'}
-    )
-    
-    # Load vector store
     try:
+        # Initialize OpenAI embedding model
+        embeddings = OpenAIEmbeddings(
+            openai_api_key=openai_api_key,
+            model=model
+        )
+        
+        # Load vector store
         vectorstore = FAISS.load_local(
             folder_path=load_path,
             embeddings=embeddings,
@@ -161,7 +166,3 @@ if __name__ == "__main__":
             )
 
             print(chunks_formated)
-
-
-            
-      
