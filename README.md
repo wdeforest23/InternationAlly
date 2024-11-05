@@ -1,12 +1,30 @@
-<div align="center">
-  <img src="images/InternationAlly%20logo.png" alt="InternationAlly" width="300">
+- <div align="center">
+  <img src="images/InternationAlly%20logo.png" alt="InternationAlly" width="200">
 </div>
 
 # <p align="center">InternationAlly</p>
 
 **InternationAlly** is an AI-powered assistant designed to simplify the transition for international students moving abroad. Developed under the **PropertyPilot** platform — a visionary initiative aiming to transform the property search and advisory process through AI-driven solutions - InternationAlly is our first specialized product offering, focusing on the unique needs of international students.
 
-## 1. Motivation 🌍
+## Table of Contents
+- [1. Motivation](#1-motivation)
+  - [Background](#background)
+  - [Common Challenges Faced by International Students](#common-challenges-faced-by-international-students)
+  - [Goals](#goals)
+  - [Differentiators](#differentiators)
+- [2. Overview of InternationAlly](#2-overview-of-internationally)
+  - [Data](#data)
+  - [Key Features](#key-features)
+  - [Methodology](#methodology)
+- [4. Evaluation & Testing](#4-evaluation--testing)
+- [5. User Interface ](#5-user-interface)
+- [6. Future Work](#6-future-work)
+- [7. Conclusion](#7-conclusion)
+- [8. References](#8-references)
+- [9. Acknowledgements/About Us](#9-acknowledgementsabout-us)
+
+  
+## 1. Motivation
 
 ### Background
 
@@ -41,9 +59,9 @@ InternationAlly bridges these gaps by providing tailored housing options, local 
 
 ---
 
-## 2. Overview of InternationAlly 🛠️
+## 2. Overview of InternationAlly
 
-![Project Architecture](images/architecture.png)
+![Project Architecture](images/Updated_diagram.jpg)
 
 ### Data
 
@@ -69,7 +87,7 @@ InternationAlly bridges these gaps by providing tailored housing options, local 
 
 ---
 
-## 4. Evaluation & Testing 📊
+## 4. Evaluation & Testing
 
 ### Evaluation Framework and Results
 
@@ -79,13 +97,17 @@ InternationAlly bridges these gaps by providing tailored housing options, local 
 
 ---
 
-## 5. User Interface 💻
+## 5. User Interface
 
 ### Application
 
-**Link to Streamlit App**
+[**Link to Streamlit App**](https://property-pilot-app-617571939826.us-central1.run.app/)
 
 ### Demo
+
+- **Initial Search:** "I am looking for an 1 bedroom apartment close to Chicago downtown campus within 2200 dollars per month."
+
+![response_1](images/response_with_UI.png)
 
 - **Initial Search:** "I am looking to purchase a house in Gold Coast, Chicago. I would like to have a minimum 3 bedrooms and 3 bathrooms. I want to pay less than $3,000,000."
 
@@ -109,7 +131,7 @@ InternationAlly bridges these gaps by providing tailored housing options, local 
 
 ---
 
-## 6. Future Work 🚀
+## 6. Future Work
 
 - **PropertyPilot's Vision: Expanded Product Offerings**
   - Develop additional specialized agents catering to diverse user groups such as first-time homebuyers, recent graduates, and military families.
@@ -125,7 +147,7 @@ InternationAlly bridges these gaps by providing tailored housing options, local 
 
 ---
 
-## 7. Conclusion 📝
+## 7. Conclusion
 
 **InternationAlly** provides international students with a convenient, comprehensive, and personalized way to navigate the challenges of moving abroad. By combining advanced technology with expert guidance, our platform empowers students to make informed decisions and confidently embark on their academic journeys. InternationAlly not only facilitates housing searches but also offers essential support in legal matters, cultural adaptation, and logistical arrangements, making it an indispensable tool for international students.
 
@@ -133,7 +155,7 @@ Convert uncertainty into confidence with InternationAlly — your ally abroad.
 
 ---
 
-## 8. References 📚
+## 8. References
 
 - **Data Sources**:
   - Zillow API
@@ -147,7 +169,7 @@ Convert uncertainty into confidence with InternationAlly — your ally abroad.
 
 ---
 
-## 9. Acknowledgements/About Us 🤝
+## 9. Acknowledgements/About Us
 
 **InternationAlly** is developed by:
 
