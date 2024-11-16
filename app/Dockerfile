@@ -26,6 +26,7 @@ RUN python -m pip install --no-cache-dir \
         vertexai \
         transformers \
         geopandas \
+        folium \
         langchain==0.3.4 \
         langchain-community==0.3.3 \
         beautifulsoup4==4.12.3 \

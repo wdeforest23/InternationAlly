@@ -8,7 +8,7 @@ from map_creation import get_default_chicago_map_config, render_map
 
 # Load the API key for Google Maps from .env
 load_dotenv()
-GOOGLE_MAPS_API_KEY = os.getenv("DEV_GOOGLE_MAP_API_KEY")
+GOOGLE_MAPS_API_KEY = os.getenv("PROD_GOOGLE_MAP_API_KEY")
 
 # Page configuration
 st.set_page_config(page_title="InternationAlly", page_icon="ally-logo.png", layout="centered")
