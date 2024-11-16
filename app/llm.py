@@ -2,8 +2,8 @@ import vertexai
 from vertexai.preview.generative_models import GenerativeModel, ChatSession
 import vertexai.preview.generative_models as generative_models
 
-vertexai.init(project = "adsp-capstone-property-pilot", location = "us-central1")
-model = GenerativeModel("gemini-1.5-pro")
+vertexai.init(project = "pp-capstone", location = "us-central1")
+model = GenerativeModel("gemini-1.5-flash-002")
 
 
 def start_chat_session() -> ChatSession:

@@ -4,7 +4,7 @@ import numpy as np
 import numpy.linalg
 from google.api_core import retry
 from vertexai.language_models import TextEmbeddingModel
-
+from langchain.load import dumps, loads
 
 embeddings_model = TextEmbeddingModel.from_pretrained("textembedding-gecko@001")
 
@@ -74,3 +74,33 @@ def get_context(question, vector_store, num_docs=10):
     # Return a string with the top matches
     context = " ".join(top_matched_df.texts.values)
     return context
+
+
+def reciprocal_rank_fusion(results: list[list], k=60, top_n=5):
+    """
+    Reciprocal rank fusion for merging multiple lists of ranked documents.
+    Returns only the top_n documents.
+    """
+    fused_scores = {}
+
+    for docs in results:
+        for rank, doc in enumerate(docs):
+            # Serialize doc to use as a dictionary key
+            doc_str = dumps(doc)
+            if doc_str not in fused_scores:
+                fused_scores[doc_str] = 0
+            fused_scores[doc_str] += 1 / (rank + k)
+    
+    # Print scores for debugging purposes
+    # print("Document Scores (Before Ranking):")
+    # for doc_str, score in fused_scores.items():
+    #     doc = loads(doc_str)  # Deserialize doc for readability
+    #     print(f"Document: {doc}, Score: {score}")
+    
+    reranked_results = [
+        (loads(doc), score)
+        for doc, score in sorted(fused_scores.items(), key=lambda x: x[1], reverse=True)
+    ]
+
+    # Return only the top_n documents
+    return [doc for doc, score in reranked_results[:top_n]]
