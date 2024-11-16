@@ -51,7 +51,7 @@ st.markdown("""
             height: auto;
             padding-top: 15px !important;
             padding-bottom: 15px !important;
-            margin-bottom: 0px !important;
+            margin-bottom: -5px !important;
         }
 
         /* Customize button colors */
@@ -561,17 +561,61 @@ def chat_app():
     # Ensure the current user and chat history are initialized
     current_user = st.session_state.current_user
 
-    #print(st.session_state.current_user)
-    #print(st.session_state.user_onboarding_data[current_user])
-
     # Fetch the user's first name if available, default to "there"
     first_name = st.session_state.users.get(current_user, {}).get("first_name", "there")
 
     if current_user not in st.session_state.chat_histories:
+
+        print(current_user)
+
+        if (current_user == "user1") or (current_user == 'user2'):
+            print("Entered.")
+            st.session_state.user_onboarding_data[current_user] = {
+                    "place_of_origin": 'Tokyo, Japan',
+                    "us_city": 'Chicago, IL',
+                    "us_college": 'The University of Chicago',
+                    "us_insurance": "No",
+                    "us_ssn": 'No',
+                    "us_place_to_stay": "No",
+                    "us_other": "I love Japanese food."
+                }
+
+        print(st.session_state.user_onboarding_data)
+
+        from llm import start_chat_session, get_chat_response
+
+        # Start a new chat session
+        welcome_chat = start_chat_session()
+
+        # Test the chat session with a simple prompt
+        welcome_prompt = f'''Hi! You are an empathetic, polite, helpful international student advisor who helps international students with a range of services like finding them a place to stay (property search), local advising on neighborhoods and places of interest (restaurants, grocery stores, attractions, public transportation, fitness centers, etc.), and also about student essentials like health insurance, visa, etc..
+        
+        Based on the information the user has given so far, I want you to generate a question template like below:
+
+        Template: Hello {first_name}! I know being an international student can feel like a lot, especially in a place like the U.S., where everything might feel new and different. How are you feeling about everything so far? Any specific areas where you’re feeling like you could use a bit of help or extra advice?
+
+        This template should change based on the demands of the user defined through the user profile. 
+
+        Here's the current user profile:
+        User hometown: {st.session_state.user_onboarding_data[current_user]['place_of_origin']}
+        User destination: {st.session_state.user_onboarding_data[current_user]['us_city']}
+        User school: {st.session_state.user_onboarding_data[current_user]['us_college']}
+        User have health insurance?: {st.session_state.user_onboarding_data[current_user]['us_insurance']}
+        User have SSN?: {st.session_state.user_onboarding_data[current_user]['us_ssn']}
+        User found a place to stay in the US?: {st.session_state.user_onboarding_data[current_user]['us_place_to_stay']}
+        User other information: {st.session_state.user_onboarding_data[current_user]['us_other']}
+
+        If the user haven't given a lot of info, you are free to make your own assumptions.
+
+        Give one good question template as the response to me which shows an international student advisor concern towards their students.
+        '''
+        welcome_response = get_chat_response(welcome_chat, welcome_prompt)
+        print("Response:", welcome_response)
+
         st.session_state.chat_histories[current_user] = [
             {
                 "role": "assistant",
-                "content": f"Hello {first_name}! I know being an international student can feel like a lot, especially in a place like the U.S., where everything might feel new and different. How are you feeling about everything so far? Any specific areas where you’re feeling like you could use a bit of help or extra advice?"
+                "content": welcome_response,
             }
         ]
     
@@ -588,7 +632,7 @@ def chat_app():
             <style>
                 .sidebar-buttons {
                     position: absolute;
-                    bottom: 30px; /* Adjust distance from the bottom */
+                    bottom: 100px; /* Adjust distance from the bottom */
                     width: calc(100% - 2rem); /* Ensure buttons take full width minus padding */
                     padding: 0 1rem;
                 }
@@ -606,7 +650,7 @@ def chat_app():
                 <div style="text-align: center;">
                     <img src="data:image/jpg;base64,{}" width="80">
                 </div>
-                <div style="text-align: center; font-size: 30px; font-weight: bold; margin-top: 10px;">
+                <div style="text-align: center; font-size: 30px; font-weight: bold; margin-top: 10px; font-family: 'Open Sans', sans-serif;">
                     InternationAlly by PropertyPilot
                 </div>
                 <div style="text-align: center; font-size: 22px;">
