@@ -59,32 +59,38 @@ def get_top_restaurants_yelp(chat, prompts_dict, user_query, top_properties):
     return top_restaurants
     
 
-def get_final_respone_property(chat, prompts_dict, user_query, property_info):
-    prompt = generate_prompt_property(prompts_dict['instruction_property_final'], user_query, property_info)
+def get_final_response_property(chat, prompts_dict, user_query, property_info, user_profile):
+    """
+    Generates the final chatbot response for a property query.
+
+    :param chat: ChatGPT object - The chatbot instance for generating responses.
+    :param prompts_dict: dict - A dictionary containing the instruction templates.
+    :param user_query: str - The user's original query.
+    :param property_info: list - The detailed property information to include in the response.
+    :param user_profile: dict - The user's profile information to include in the response.
+    :return: str - The chatbot's final response.
+    """
+    prompt = generate_prompt_property(prompts_dict['instruction_property_final'], user_query, property_info, user_profile)
     response = get_chat_response(chat, prompt)
     return response
     
 
-def chat_property(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries):
+def chat_property(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, user_profile):
+    # Fetch top properties from Zillow
     top_properties = get_listings_from_zillow(chat, prompts_dict, user_query)
     print('Top properties:', top_properties)
-    
-    # Case1: Add Yelp and neighborhood information to the properties   
-    # top_restaurants = get_top_restaurants_yelp(chat, prompts_dict, user_query, top_properties)
-    # print('Top Restaurants:', top_restaurants)
-    # top_properties_and_restaurants = merge_property_and_restaurant_info(top_properties, top_restaurants)
-    # print('Top properties and restaurants:', top_properties_and_restaurants)
-    # property_info_final = get_neighborhood_details(
-    #     top_properties=top_properties_and_restaurants,
-    #     neighborhoods_info=neighborhoods_info,
-    #     neighborhoods_boundaries=neighborhoods_boundaries
-    # )
-    # print('Top properties and restaurants with Neighborhood info:', property_info_final)
-    # response_property_final = get_final_respone_property(chat, prompts_dict, user_query, property_info=property_info_final)
-    
-    # Case2: Use only properties information
+
+    # Use only property information for now
     property_info_final = top_properties
-    response_property_final = get_final_respone_property(chat, prompts_dict, user_query, property_info=property_info_final)
+
+    # Generate the chatbot response using the user profile
+    response_property_final = get_final_response_property(
+        chat,
+        prompts_dict,
+        user_query,
+        property_info=property_info_final,
+        user_profile=user_profile
+    )
 
     # Generate the property map
     map_html = create_property_map(api_key=GOOGLE_MAPS_API_KEY, top_properties=top_properties)
@@ -165,7 +171,7 @@ def chat_general(chat, prompts_dict, user_query):
     return response_general_final
 
 
-def chat_local_advisor(chat, prompts_dict, user_query, api_key):
+def chat_local_advisor(chat, prompts_dict, user_query, api_key, user_profile):
     """
     Handles Local Advisor user queries by refining the query, performing the Google Places search,
     and generating a response.
@@ -192,7 +198,7 @@ def chat_local_advisor(chat, prompts_dict, user_query, api_key):
     # Step 3: Generate a response for the user using LLM
     if places:
         response_instruction = prompts_dict["instruction_local_advisor_response"]
-        response = generate_local_advisor_response(chat, response_instruction, user_query, places)
+        response = generate_local_advisor_response(chat, response_instruction, user_query, places, user_profile)
     else:
         response = f"Sorry, I couldn't find any results for '{search_string}'."
 
@@ -203,15 +209,15 @@ def chat_local_advisor(chat, prompts_dict, user_query, api_key):
 
 
 # final
-def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, vectordb):
+def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, vectordb, user_profile):
     
     intent_int = intent_classifier(chat, prompts_dict, user_query)
 
     if intent_int == 1:  # Property intent
-        response_property_final, map_html = chat_property(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries)
+        response_property_final, map_html = chat_property(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, user_profile)
         return response_property_final, map_html, intent_int
     elif intent_int == 2:  # Local Advisor intent
-        response_local_advisor, map_html = chat_local_advisor(chat, prompts_dict, user_query, GOOGLE_MAPS_API_KEY)
+        response_local_advisor, map_html = chat_local_advisor(chat, prompts_dict, user_query, GOOGLE_MAPS_API_KEY, user_profile)
         return response_local_advisor, map_html, intent_int
     elif intent_int == 3:  # International Student Advisor intent
         response_international_final = chat_international(chat, prompts_dict, user_query, vectordb, fusion=True)

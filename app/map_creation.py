@@ -200,7 +200,7 @@ def render_map(api_key, center, zoom=14, markers=None):
 
 def create_property_map(api_key, top_properties):
     """
-    Creates a map for the given properties.
+    Creates a map for the given properties, including an image banner in each marker.
 
     Parameters:
         api_key (str): Google Maps API key.
@@ -219,22 +219,30 @@ def create_property_map(api_key, top_properties):
         )
 
     # Extract markers from property data
-    markers = [
-        {
-            "lat": prop["latitude"],
-            "lng": prop["longitude"],
-            "title": prop["address"],
-            "info": f"""
-                <strong>{prop['address']}</strong><br>
-                Price: {prop['price']}<br>
-                Bedrooms: {prop['bedrooms']}<br>
-                Bathrooms: {prop['bathrooms']}<br>
+    markers = []
+    for prop in top_properties:
+        # Fallback image if no images are available
+        image_url = prop.get("imgSrc") or "https://via.placeholder.com/200"
+
+        # Create marker info with image as a banner
+        info = f"""
+            <div style="text-align:center;">
+                <img src="{image_url}" alt="Property Image" style="width:200px;height:auto;border-radius:10px;"><br>
+                Price: {prop.get('price', 'N/A')}<br>
+                Bedrooms: {prop.get('bedrooms', 'N/A')}<br>
+                Bathrooms: {prop.get('bathrooms', 'N/A')}<br>
                 <a href="{prop['detailUrl']}" target="_blank">View Details</a>
-            """
-        }
-        for prop in top_properties
-    ]
-    print("Markers for map:", markers)  # Debug marker data
+            </div>
+        """
+
+        markers.append(
+            {
+                "lat": prop["latitude"],
+                "lng": prop["longitude"],
+                "title": prop["address"],
+                "info": info,
+            }
+        )
 
     # Center the map on the first property
     center = {
@@ -243,6 +251,7 @@ def create_property_map(api_key, top_properties):
     }
 
     return render_map(api_key, center=center, zoom=14, markers=markers)
+
 
 def create_local_advisor_map(api_key, places):
     """
@@ -270,6 +279,7 @@ def create_local_advisor_map(api_key, places):
             "Yes" if place.get("opening_hours", {}).get("open_now") else "No information"
         )
         icon_url = place.get("icon")  # Icon URL
+        google_maps_link = place.get("google_maps_link")
         photo_reference = None
 
         # Check for a photo in the place details
@@ -293,6 +303,8 @@ def create_local_advisor_map(api_key, places):
             f"Rating: {rating} ({user_ratings} reviews)<br>"
             f"Open Now: {open_now}"
         )
+        if google_maps_link:
+            info += f"<br><a href='{google_maps_link}' target='_blank'>View on Google Maps</a>"
 
         # Append the marker information
         markers.append(

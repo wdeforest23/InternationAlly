@@ -64,14 +64,23 @@ def search_google_places(api_key, search_string, included_type):
     if response.status_code == 200:
         data = response.json()
         if "results" in data:
-            return data["results"]
+            results = data["results"]
+            
+            # Add Google Maps link for each result
+            for result in results:
+                place_id = result.get("place_id")
+                if place_id:
+                    result["google_maps_link"] = f"https://www.google.com/maps/place/?q=place_id:{place_id}"
+            
+            print(results)  # Debug: Check the results with added links
+            return results
         else:
             print("No results found.")
             return []
     else:
         raise ValueError(f"Google Places API error: {response.status_code} {response.text}")
 
-def generate_local_advisor_response(chat, instruction, user_query, places):
+def generate_local_advisor_response(chat, instruction, user_query, places, user_profile):
     """
     Generates a response for the Local Advisor using LLM.
 
@@ -85,7 +94,7 @@ def generate_local_advisor_response(chat, instruction, user_query, places):
         str: The generated response from the LLM.
     """
     # Prepare the input for the LLM
-    prompt = generate_prompt_local_advisor_response(instruction, user_query, places)
+    prompt = generate_prompt_local_advisor_response(instruction, user_query, places, user_profile)
 
     # Get the response from the LLM
     response = get_chat_response(chat, prompt)

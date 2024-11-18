@@ -5,6 +5,7 @@ import geopandas as gpd
 from shapely.geometry import Point
 import os
 import requests
+import time
 from dotenv import load_dotenv
 # load_dotenv()
 
@@ -68,9 +69,10 @@ def fetch_data_if_chicago(search_filter, url=url, headers=headers):
         return None
 
 
-def extract_properties(response, fields,  n=5):
+def extract_properties(response, fields, n=5):
     """
     Extracts the top 'n' properties from the API response based on specified fields.
+    Handles both standard property data and buildings with nested units.
 
     :param response: Response object or dict - The API response containing property data.
     :param n: int - The number of top properties to extract.
@@ -83,13 +85,43 @@ def extract_properties(response, fields,  n=5):
         if not isinstance(response, dict):
             response = response.json()
 
-        # Extract the top 'n' properties based on the specified fields
+        # Extract properties
         top_properties = []
-        for prop in response['props'][:n]:
-            extracted_prop = {field: (base_url + prop['detailUrl'] if field == 'detailUrl' else prop.get(field, None)) for field in fields}
-            top_properties.append(extracted_prop)
+        for prop in response.get('props', []):
+            # If the property is a building with units
+            if prop.get('isBuilding') and 'units' in prop:
+                for unit in prop['units']:
+                    extracted_prop = {
+                        'address': f"{prop.get('buildingName', 'Unknown Building')}, {prop.get('address', 'Unknown Address')}",
+                        'price': unit.get('price'),
+                        'bedrooms': unit.get('beds'),
+                        'bathrooms': unit.get('baths', None),  # Units often lack bathrooms info
+                        'detailUrl': base_url + prop.get('detailUrl', ''),
+                        'imgSrc': prop.get('imgSrc', None),
+                        'latitude': prop.get('latitude', None),
+                        'longitude': prop.get('longitude', None),
+                        'zpid': prop.get('zpid', None),
+                    }
+                    top_properties.append(extracted_prop)
+            else:  # Standard property data
+                extracted_prop = {
+                    'address': prop.get('address', 'Unknown Address'),
+                    'price': prop.get('price', None),
+                    'bedrooms': prop.get('bedrooms', None),
+                    'bathrooms': prop.get('bathrooms', None),
+                    'detailUrl': base_url + prop.get('detailUrl', ''),
+                    'imgSrc': prop.get('imgSrc', None),
+                    'latitude': prop.get('latitude', None),
+                    'longitude': prop.get('longitude', None),
+                    'zpid': prop.get('zpid', None),
+                }
+                top_properties.append(extracted_prop)
 
-        return top_properties
+            # Stop if we've collected 'n' properties
+            if len(top_properties) >= n:
+                break
+
+        return top_properties[:n]
 
     except Exception as e:
         print("An error occurred:", e)
@@ -221,6 +253,54 @@ def fetch_neighborhood_info(top_properties, neighborhood_info):
 #         formatted_prop = ', '.join(f"{field.capitalize().replace('_', ' ')}: {prop.get(field, 'N/A')}" for field in fields)
 #         formatted_properties.append(formatted_prop)
 #     return '\n\n'.join(formatted_properties)
+
+
+def fetch_images(properties, headers=headers):
+    """
+    Fetches up to 3 images for each property using the Zillow API or fallback to imgSrc.
+
+    :param properties: list - A list of dictionaries representing properties, each with a 'zpid' or 'imgSrc'.
+    :param headers: dict - HTTP headers for the API request.
+    :return: list - The updated list of properties with image URLs included.
+    """
+    images_url = "https://zillow-com1.p.rapidapi.com/images"
+    
+    for prop in properties:
+        try:
+            # Attempt to use imgSrc if available
+            if "imgSrc" in prop and prop["imgSrc"]:
+                prop["images"] = [prop["imgSrc"]]
+                continue
+            
+            # Use zpid if available
+            zpid = prop.get("zpid")
+            print(zpid)
+            if not zpid:
+                prop["images"] = ["No images available"]
+                continue  # Skip if no zpid is available
+
+            # Make the API call
+            querystring = {"zpid":zpid}
+            response = requests.get(images_url, headers=headers, params=querystring)
+            
+            # Handle potential rate-limiting (429)
+            if response.status_code == 429:
+                print(f"Rate-limited for property {prop.get('address', 'unknown')}. Retrying after a delay.")
+                time.sleep(1)  # Exponential backoff can be added here
+                response = requests.get(images_url, headers=headers, params=querystring)
+            
+            response.raise_for_status()  # Raise an exception for HTTP errors
+            
+            # Extract up to 3 image URLs
+            images = response.json().get("images", [])
+            prop["images"] = images[:3] if images else ["No images available"]
+
+        except Exception as e:
+            print(f"Error fetching images for property {prop.get('address', 'unknown')}: {e}")
+            prop["images"] = ["No images available"]  # Fallback in case of an error
+
+    return properties
+
 
 
 def fetch_top_properties_detail(api_filter, url=url, headers=headers):

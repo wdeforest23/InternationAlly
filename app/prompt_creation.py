@@ -34,17 +34,21 @@ def generate_prompt_classifier(instruction, user_query):
     return instruction.replace("{USER_QUERY}", user_query)
 
 
-def generate_prompt_property(instruction, user_query, property_info):
+def generate_prompt_property(instruction, user_query, property_info, user_profile):
     """
     Generates a prompt for a property query by replacing placeholders in the instruction with actual data.
 
     :param instruction: str - The instruction template containing placeholders.
     :param user_query: str - The user's original query.
-    :param property_info: list - The detailed property information to include in the response. It can also include local information.
+    :param property_info: list - The detailed property information to include in the response.
+    :param user_profile: dict - The user's profile information to include in the response.
     :return: str - The updated instruction with the placeholders replaced by the user query, property info, and key fields.
     """
+    user_profile_str = "\n".join([f"{key}: {value}" for key, value in user_profile.items()])
+
     updated_instruction = instruction.replace("{USER_QUERY}", user_query)
     updated_instruction = updated_instruction.replace("{PROPERTY_INFO}", str(property_info))
+    updated_instruction = updated_instruction.replace("{USER_PROFILE}", user_profile_str)
     return updated_instruction
 
 
@@ -156,7 +160,7 @@ def generate_prompt_local_advisor(instruction, user_query):
     """
     return instruction.replace("{USER_QUERY}", user_query)
 
-def generate_prompt_local_advisor_response(instruction, user_query, places):
+def generate_prompt_local_advisor_response(instruction, user_query, places, user_profile):
     """
     Generates a prompt for the LLM to create a response for the Local Advisor.
 
@@ -176,7 +180,11 @@ def generate_prompt_local_advisor_response(instruction, user_query, places):
         ]
     )
 
+    # Include user profile information in the prompt
+    user_profile_str = "\n".join([f"{key}: {value}" for key, value in user_profile.items()])
+
     # Replace placeholders in the instruction
     prompt = instruction.replace("{USER_QUERY}", user_query)
     prompt = prompt.replace("{PLACES}", places_str)
+    prompt = prompt.replace("{USER_PROFILE}", user_profile_str)
     return prompt
