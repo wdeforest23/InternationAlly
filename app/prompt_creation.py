@@ -79,17 +79,23 @@ def generate_prompt_rag_neighborhood(instruction, context, user_query):
     return instruction.replace("{USER_QUERY}", user_query)
 
 
-def generate_prompt_rag_international(instruction, context, user_query):
+def generate_prompt_rag_international(instruction, context, user_query, user_profile):
     """
     Replaces placeholders in the instruction template with the provided context and user query.
 
     :param instruction: str - The template instruction containing placeholders for context and user query.
     :param context: str - The context that will replace the {CONTEXT} placeholder in the instruction.
     :param user_query: str - The user query that will replace the {USER_QUERY} placeholder in the instruction.
+    :param user_query: dict - User profile information
     :return: str - The updated instruction with the context and user query inserted.
     """
+
+    user_profile_str = "\n".join([f"{key}: {value}" for key, value in user_profile.items()])
+    instruction = instruction.replace("{USER_PROFILE}", user_profile_str)
+
     instruction = instruction.replace("{CONTEXT}", context)
-    return instruction.replace("{USER_QUERY}", user_query)
+    instruction = instruction.replace("{USER_QUERY}", user_query)
+    return instruction 
 
 
 def generate_prompt_yelp_advisor(yelp_advisor_instruction, user_query, categories_string):
@@ -134,12 +140,15 @@ def generate_prompt_rest_category(output_instructions, user_query, categories):
     updated_instruction = updated_instruction.replace("{CATEGORIES_STRING}", categories_string)
     return updated_instruction
 
-def generate_prompt_general(instructions, user_query):
+
+def generate_prompt_general(instructions, user_query, user_profile):
     """
     Generates the final output by replacing placeholders with the user query.
     """
-    updated_instruction = instructions.replace("{USER_QUERY}", user_query)
-    return updated_instruction
+    user_profile_str = "\n".join([f"{key}: {value}" for key, value in user_profile.items()])
+    instruction = instruction.replace("{USER_PROFILE}", user_profile_str)
+    instruction = instructions.replace("{USER_QUERY}", user_query)
+    return instruction
 
 
 def generate_prompt_rewrite_query(instructions, user_query):
@@ -148,6 +157,7 @@ def generate_prompt_rewrite_query(instructions, user_query):
     """
     updated_instruction = instructions.replace("{USER_QUERY}", user_query)
     return updated_instruction
+
 
 def generate_prompt_local_advisor(instruction, user_query):
     """
@@ -160,6 +170,7 @@ def generate_prompt_local_advisor(instruction, user_query):
     """
     return instruction.replace("{USER_QUERY}", user_query)
 
+
 def generate_prompt_local_advisor_response(instruction, user_query, places, user_profile):
     """
     Generates a prompt for the LLM to create a response for the Local Advisor.
@@ -168,6 +179,7 @@ def generate_prompt_local_advisor_response(instruction, user_query, places, user
         instruction (str): The instruction template containing placeholders.
         user_query (str): The user's query.
         places (list): A list of places from the Google Places API.
+        user_profile(dict): User's profile information
 
     Returns:
         str: The prompt for the LLM.

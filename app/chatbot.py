@@ -141,7 +141,7 @@ def rewrite_queries(chat, prompts_dict, user_query):
 
 
 # functions for international students
-def chat_international(chat, prompts_dict, user_query, vectordb, fusion=False):
+def chat_international(chat, prompts_dict, user_query, vectordb, user_profile, fusion=False):
 
     if fusion:
         rewritten_queries = rewrite_queries(chat, prompts_dict, user_query)
@@ -159,14 +159,14 @@ def chat_international(chat, prompts_dict, user_query, vectordb, fusion=False):
             include_content=True
             )
     # print('Contexts:', chunks_formated)
-    prompt_rag_international = generate_prompt_rag_international(prompts_dict['instruction_rag_international'], chunks_formated, user_query)
+    prompt_rag_international = generate_prompt_rag_international(prompts_dict['instruction_rag_international'], chunks_formated, user_query, user_profile)
     response_international_final = get_chat_response(chat, prompt_rag_international)
     return response_international_final
 
 
 # functions for general response
-def chat_general(chat, prompts_dict, user_query):
-    prompt_general = generate_prompt_general(prompts_dict['instruction_general'], user_query)
+def chat_general(chat, prompts_dict, user_query, user_profile):
+    prompt_general = generate_prompt_general(prompts_dict['instruction_general'], user_query, user_profile)
     response_general_final = get_chat_response(chat, prompt_general)
     return response_general_final
 
@@ -212,16 +212,19 @@ def chat_local_advisor(chat, prompts_dict, user_query, api_key, user_profile):
 def chat_all(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, vectordb, user_profile):
     
     intent_int = intent_classifier(chat, prompts_dict, user_query)
-
-    if intent_int == 1:  # Property intent
+    # Property intent
+    if intent_int == 1:
         response_property_final, map_html = chat_property(chat, prompts_dict, user_query, neighborhoods_info, neighborhoods_boundaries, user_profile)
         return response_property_final, map_html, intent_int
-    elif intent_int == 2:  # Local Advisor intent
+    # Local Advisor intent
+    elif intent_int == 2:
         response_local_advisor, map_html = chat_local_advisor(chat, prompts_dict, user_query, GOOGLE_MAPS_API_KEY, user_profile)
         return response_local_advisor, map_html, intent_int
-    elif intent_int == 3:  # International Student Advisor intent
-        response_international_final = chat_international(chat, prompts_dict, user_query, vectordb, fusion=True)
+    # International Student Advisor intent
+    elif intent_int == 3:
+        response_international_final = chat_international(chat, prompts_dict, user_query, vectordb, user_profile, fusion=True)
         return response_international_final, None, intent_int
-    else:   # Other intent
-        response_default = chat_general(chat, prompts_dict, user_query)
+    # Other intent
+    else:
+        response_default = chat_general(chat, prompts_dict, user_query, user_profile)
         return response_default, None, intent_int
