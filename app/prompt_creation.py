@@ -141,13 +141,13 @@ def generate_prompt_rest_category(output_instructions, user_query, categories):
     return updated_instruction
 
 
-def generate_prompt_general(instructions, user_query, user_profile):
+def generate_prompt_general(instruction, user_query, user_profile):
     """
     Generates the final output by replacing placeholders with the user query.
     """
     user_profile_str = "\n".join([f"{key}: {value}" for key, value in user_profile.items()])
     instruction = instruction.replace("{USER_PROFILE}", user_profile_str)
-    instruction = instructions.replace("{USER_QUERY}", user_query)
+    instruction = instruction.replace("{USER_QUERY}", user_query)
     return instruction
 
 
