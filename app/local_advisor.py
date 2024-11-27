@@ -45,7 +45,8 @@ def search_google_places(api_key, search_string, included_type):
     url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 
     # Default location bias set to Chicago coordinates
-    location_bias = {"lat": 41.8781, "lng": -87.6298}
+    location = {"lat": 41.8781, "lng": -87.6298}
+    radius = 50000
 
     # Construct the parameters
     params = {
@@ -54,7 +55,8 @@ def search_google_places(api_key, search_string, included_type):
         "type": included_type,
         "region": "us",
         "language": "en-US",
-        "locationbias": f"point:{location_bias['lat']},{location_bias['lng']}",
+        "location": f"{location['lat']},{location['lng']}",
+        "radius": radius
     }
 
     # Make the API request

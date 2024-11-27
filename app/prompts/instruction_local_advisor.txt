@@ -1,5 +1,5 @@
 ### Instructions ###
-Analyze the user's query and generate a concise search string for finding places using the Google Maps Places Text Search API. 
+Analyze the user's query and generate a concise search string for finding places using the Google Maps Places Text Search API. Unless explicitly stated otherwise, all searches should be made in the Chicago area. 
 
 Additionally, select the most relevant `includedType` from the following list:
 -gas_station

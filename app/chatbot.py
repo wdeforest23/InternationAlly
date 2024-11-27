@@ -27,7 +27,7 @@ from rag import get_context, reciprocal_rank_fusion
 from vector_search import search_similar_chunks, format_chunk_results
 import json
 
-GOOGLE_MAPS_API_KEY = os.getenv("DEV_GOOGLE_MAP_API_KEY")
+GOOGLE_MAPS_API_KEY = os.getenv("PROD_GOOGLE_MAP_API_KEY")
 
 # initial intent
 def intent_classifier(chat, prompts_dict, user_query):
