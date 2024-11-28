@@ -1,5 +1,4 @@
 import json
-import pandas as pd
 import requests
 import geopandas as gpd
 from shapely.geometry import Point
@@ -7,14 +6,11 @@ import os
 import requests
 import time
 from dotenv import load_dotenv
-# load_dotenv()
 
 env_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path=env_path)
 
-
 zillow_api = os.getenv("ZILLOW_API_KEY")
-# Make a request to Zillow API
 url = "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch"
 url_details = "https://zillow-com1.p.rapidapi.com/property"
 
@@ -69,14 +65,13 @@ def fetch_data_if_chicago(search_filter, url=url, headers=headers):
         return None
 
 
-def extract_properties(response, fields, n=5):
+def extract_properties(response, n=5):
     """
     Extracts the top 'n' properties from the API response based on specified fields.
     Handles both standard property data and buildings with nested units.
 
     :param response: Response object or dict - The API response containing property data.
     :param n: int - The number of top properties to extract.
-    :param fields: list - The fields to extract from each property.
     :return: list - A list of dictionaries, each representing a property with the specified fields.
     """
     base_url = "https://www.zillow.com"
@@ -95,7 +90,7 @@ def extract_properties(response, fields, n=5):
                         'address': f"{prop.get('buildingName', 'Unknown Building')}, {prop.get('address', 'Unknown Address')}",
                         'price': unit.get('price'),
                         'bedrooms': unit.get('beds'),
-                        'bathrooms': unit.get('baths', None),  # Units often lack bathrooms info
+                        'bathrooms': unit.get('baths', None),
                         'detailUrl': base_url + prop.get('detailUrl', ''),
                         'imgSrc': prop.get('imgSrc', None),
                         'latitude': prop.get('latitude', None),
@@ -103,7 +98,8 @@ def extract_properties(response, fields, n=5):
                         'zpid': prop.get('zpid', None),
                     }
                     top_properties.append(extracted_prop)
-            else:  # Standard property data
+            # Standard property data
+            else:
                 extracted_prop = {
                     'address': prop.get('address', 'Unknown Address'),
                     'price': prop.get('price', None),
@@ -125,7 +121,7 @@ def extract_properties(response, fields, n=5):
 
     except Exception as e:
         print("An error occurred:", e)
-        return []  # Return an empty list in case of an error
+        return []
 
 
 def fetch_descriptions(properties, headers=headers, url_details=url_details):
@@ -239,22 +235,6 @@ def fetch_neighborhood_info(top_properties, neighborhood_info):
     return top_properties
 
 
-# def format_properties(properties, fields):
-#     """
-#     Formats property information into a human-readable string based on specified fields.
-
-#     :param properties: list - A list of dictionaries, each representing a property.
-#     :param fields: list - A list of fields to be extracted and formatted from each property.
-#     :return: str - A string with the formatted property details, with each property separated by a blank line.
-#     """
-#     formatted_properties = []
-#     for prop in properties:
-#         # Format and concatenate each field of each property
-#         formatted_prop = ', '.join(f"{field.capitalize().replace('_', ' ')}: {prop.get(field, 'N/A')}" for field in fields)
-#         formatted_properties.append(formatted_prop)
-#     return '\n\n'.join(formatted_properties)
-
-
 def fetch_images(properties, headers=headers):
     """
     Fetches up to 3 images for each property using the Zillow API or fallback to imgSrc.
@@ -304,12 +284,18 @@ def fetch_images(properties, headers=headers):
 
 
 def fetch_top_properties_detail(api_filter, url=url, headers=headers):
+    """
+    Fetches detailed information for the top properties based on the given API filter.
+
+    :param api_filter: dict - Query parameters to filter the properties from the Zillow API.
+    :param url: str - The API endpoint URL (default is set to the Zillow property search endpoint).
+    :param headers: dict - HTTP headers containing authentication and other details.
+    :return: list - A list of top properties with detailed information, including descriptions, resoFacts, and school info.
+    """
     response = requests.get(url, headers = headers, params = api_filter)
     
-    # get top 3 listings(sorted by newest)
-    # Define fields to extract
-    fields = ["propertyType", "address", "price", "bedrooms", "bathrooms", "detailUrl", "imgSrc", "longitude", "latitude"]
-    top_properties = extract_properties(response, fields)
+    # get top 5 listings(sorted by newest)
+    top_properties = extract_properties(response)
     
     # get description of the properties
     top_properties = fetch_descriptions(top_properties)

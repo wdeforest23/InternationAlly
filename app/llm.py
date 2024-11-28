@@ -48,6 +48,6 @@ def get_chat_response(chat: ChatSession, prompt: str) -> str:
                 text_response.append(chunk.text)
         return "".join(text_response)
     except ValueError as e:
-        print(f"Error occurred: {e}")   # Log the error for debugging
+        print(f"Error occurred: {e}")
         # Return a fallback response
         return "I'm sorry, but your question was detected to contain harmful or personally identifiable information. To protect our users and your privacy, I cannot provide an answer to that specific query. Please remove any harmful or personally identifiable information and try again."

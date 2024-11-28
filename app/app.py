@@ -548,12 +548,10 @@ def edit_profile_page():
 def chat_app():
     # Setup the bot and environment, but only once
     if 'setup_done' not in st.session_state:
-        chat, prompts_dict, neighborhoods_info, neighborhoods_boundaries, vectordb = setup()
+        chat, prompts_dict, vectordb = setup()
         configure_display_options()
         st.session_state.chat = chat
         st.session_state.prompts_dict = prompts_dict
-        st.session_state.neighborhoods_info = neighborhoods_info
-        st.session_state.neighborhoods_boundaries = neighborhoods_boundaries
         st.session_state.vectordb = vectordb
         st.session_state.setup_done = True
         st.session_state.current_map_html = None  # Initialize with no map displayed
@@ -705,8 +703,6 @@ def chat_app():
             st.session_state.chat,
             st.session_state.prompts_dict,
             user_input,
-            st.session_state.neighborhoods_info,
-            st.session_state.neighborhoods_boundaries,
             st.session_state.vectordb,
             st.session_state.user_onboarding_data[current_user]
         )
