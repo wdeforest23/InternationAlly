@@ -1,10 +1,7 @@
 import json
 import requests
-import geopandas as gpd
-from shapely.geometry import Point
 import os
 import requests
-import time
 from dotenv import load_dotenv
 
 env_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -195,92 +192,6 @@ def fetch_schools(properties, headers=headers):
         prop['schools'] = schools
 
     return properties
-
-
-def fetch_neighborhood(top_properties, neighborhoods):
-    """
-    Identifies and appends the neighborhood for each property based on its location.
-
-    :param top_properties: list - A list of dictionaries representing properties.
-    :param neighborhoods: GeoDataFrame - The GeoDataFrame containing neighborhood boundaries.
-    :return: list - The updated list of properties with neighborhood information appended.
-    """
-    for i in range(0, len(top_properties)):
-        latitude = top_properties[i]['latitude']
-        longitude = top_properties[i]['longitude']
-        point = gpd.GeoDataFrame([{'geometry': Point(longitude, latitude)}], crs='EPSG:4326')
-        point = point.to_crs(neighborhoods.crs)
-        point_in_neighborhood = gpd.sjoin(point, neighborhoods, how="inner", op='intersects')
-        neighborhood = point_in_neighborhood['pri_neigh'].values[0]
-        top_properties[i]['neighborhood'] = neighborhood
-    return top_properties
-
-
-def fetch_neighborhood_info(top_properties, neighborhood_info):
-    """
-    Appends neighborhood descriptions to each property.
-
-    :param top_properties: list - A list of property dictionaries with neighborhood information.
-    :param neighborhood_info: DataFrame - A DataFrame containing neighborhood descriptions.
-    :return: list - The updated list of properties with neighborhood descriptions included.
-    """
-    neighborhood_info['neighborhood'] = neighborhood_info['neighborhood'].str.strip()
-    for i in range(0, len(top_properties)):
-        neighborhood = top_properties[i]['neighborhood']
-        try:
-            neighborhood_description = neighborhood_info[neighborhood_info['neighborhood'] == neighborhood]['neighborhood_information'].values[0]
-        except:
-            neighborhood_description = 'Neighborhood description is not found.'
-        top_properties[i]['neighborhood_description'] = neighborhood_description
-    return top_properties
-
-
-def fetch_images(properties, headers=headers):
-    """
-    Fetches up to 3 images for each property using the Zillow API or fallback to imgSrc.
-
-    :param properties: list - A list of dictionaries representing properties, each with a 'zpid' or 'imgSrc'.
-    :param headers: dict - HTTP headers for the API request.
-    :return: list - The updated list of properties with image URLs included.
-    """
-    images_url = "https://zillow-com1.p.rapidapi.com/images"
-    
-    for prop in properties:
-        try:
-            # Attempt to use imgSrc if available
-            if "imgSrc" in prop and prop["imgSrc"]:
-                prop["images"] = [prop["imgSrc"]]
-                continue
-            
-            # Use zpid if available
-            zpid = prop.get("zpid")
-            print(zpid)
-            if not zpid:
-                prop["images"] = ["No images available"]
-                continue  # Skip if no zpid is available
-
-            # Make the API call
-            querystring = {"zpid":zpid}
-            response = requests.get(images_url, headers=headers, params=querystring)
-            
-            # Handle potential rate-limiting (429)
-            if response.status_code == 429:
-                print(f"Rate-limited for property {prop.get('address', 'unknown')}. Retrying after a delay.")
-                time.sleep(1)  # Exponential backoff can be added here
-                response = requests.get(images_url, headers=headers, params=querystring)
-            
-            response.raise_for_status()  # Raise an exception for HTTP errors
-            
-            # Extract up to 3 image URLs
-            images = response.json().get("images", [])
-            prop["images"] = images[:3] if images else ["No images available"]
-
-        except Exception as e:
-            print(f"Error fetching images for property {prop.get('address', 'unknown')}: {e}")
-            prop["images"] = ["No images available"]  # Fallback in case of an error
-
-    return properties
-
 
 
 def fetch_top_properties_detail(api_filter, url=url, headers=headers):
