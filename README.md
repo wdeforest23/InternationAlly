@@ -26,7 +26,7 @@
   - [Evaluation Framework and Results](#evaluation-framework-and-results)
   - [User Testing](#user-testing)
 - [5. Differentiators ✨](#5-differentiators-)
-- [6. Future Work 🚀](#6-future-work-)
+- [6. Future Work 🚀](#6-propertypilots-vision-future-work-and-expansion-)
 - [7. Conclusion 🎓](#7-conclusion-)
 - [8. References](#8-references)
 - [9. Acknowledgements/About Us](#9-acknowledgementsabout-us)
@@ -232,13 +232,13 @@ Over the past several months, the capabilities of foundational Large Language Mo
 
 **Comparison with Gemini 1.5 Pro:**
 <div style="display: flex; justify-content: space-between;">
-  <img src="Documents\Ally_Gemini_Comp_Part_I.png" alt="Ally 1" width="500" />
-  <img src="Documents\Gemini_Example_Part_I.png" alt="Gemini 1" width="600" />
+  <img src="Documents\Ally_Gemini_Comp_Part_I.png" alt="Ally 1" width="300" />
+  <img src="Documents\Gemini_Example_Part_I.png" alt="Gemini 1" width="400" />
 </div>
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="Documents\Ally_Gemini_Comp_Part_II.png" alt="Ally II" width="500" />
-  <img src="Documents\Gemini_Example_Part_II.png" alt="Gemini II" width="600" />
+  <img src="Documents\Ally_Gemini_Comp_Part_II.png" alt="Ally II" width="300" />
+  <img src="Documents\Gemini_Example_Part_II.png" alt="Gemini II" width="400" />
 </div>
 
  InternationAlly's recommendations for studio apartments near NBC Tower reflect a deeper understanding of international students' needs. Unlike general-purpose LLMs, which often offer broad suggestions based on proximity or price, InternationAlly delivers detailed, empathetic, and actionable advice. For example, while Google Gemini also found apartments with ratings and links, InternationAlly highlights factors like transportation, cultural adaptation, and local community benefits. Additionally, the tone is warm and encouraging, acknowledging the user's journey and providing context, such as the importance of proximity to campus and public transit. This tailored approach ensures students feel supported and understood during their housing search.
