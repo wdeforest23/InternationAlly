@@ -51,7 +51,7 @@ def login_page():
             # Show success message
             st.markdown("<div class='st-success-box'>Sign-in successful ✅ Launching Ally 🤗</div>", unsafe_allow_html=True)
             time.sleep(1)
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.markdown("<div class='st-error-box'>❌ Invalid username or password.</div>", unsafe_allow_html=True)
 
@@ -65,4 +65,4 @@ def login_page():
         with col2:  # Place the button in the middle column
             if st.button("Sign Up Here", key="small-signup-button"):
                 show_signup()
-                st.experimental_rerun()
+                st.rerun()

@@ -43,4 +43,4 @@ def edit_profile_page():
         # st.success("Profile updated successfully!")
         st.markdown("<div class='st-success-box'>✅ Profile updated successfully!</div>", unsafe_allow_html=True)
         time.sleep(1)  # Add slight delay for better UX
-        st.experimental_rerun()  # Redirect to chat screen
+        st.rerun()  # Redirect to chat screen

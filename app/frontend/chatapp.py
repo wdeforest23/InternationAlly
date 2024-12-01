@@ -131,16 +131,16 @@ def chat_app():
                 ]
                 st.session_state.current_map_html = None  # Clear map when clearing chat
                 st.success("Chat history cleared.")
-                st.experimental_rerun()
+                st.rerun()
 
             if st.button("Edit Profile"):
                 st.session_state.editing_profile = True  # Toggle to profile editing mode
-                st.experimental_rerun()
+                st.rerun()
 
             if st.button("Log Out"):
                 st.session_state.logged_in = False
                 st.session_state.current_user = None
-                st.experimental_rerun()
+                st.rerun()
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -175,12 +175,12 @@ def chat_app():
             with st.spinner("Thinking..."):
                 for word in response.split():
                     gradual_text += word + " "
-                    placeholder.markdown(gradual_text)
+                    placeholder.text(gradual_text)
                     time.sleep(0.05)
 
             # Finalize the placeholder with the complete response - Will
             # response = preprocess_markdown(response)
-            # placeholder.markdown(response)
+            placeholder.markdown(response)
 
         # Add the response to chat history
         st.session_state.chat_histories[current_user].append({"role": "assistant", "content": response})

@@ -44,7 +44,7 @@ def onboarding_page():
                     "place_of_origin": place_of_origin.strip()
                 }
                 st.session_state.onboarding_step = 2  # Move to the next step
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.markdown("<div class='st-error-box'>❗ Please tell us where you're from to proceed.</div>", unsafe_allow_html=True)
 
@@ -62,7 +62,7 @@ def onboarding_page():
                 # Save the response
                 st.session_state.user_onboarding_data[current_user]["us_city"] = us_city.strip()
                 st.session_state.onboarding_step = 3  # Move to the next step
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.markdown("<div class='st-error-box'>❗ Please tell us your destination city to complete the onboarding.</div>", unsafe_allow_html=True)
 
@@ -80,7 +80,7 @@ def onboarding_page():
                 # Save the response
                 st.session_state.user_onboarding_data[current_user]["us_college"] = us_college.strip()
                 st.session_state.onboarding_step = 4  # Move to the next step
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.markdown("<div class='st-error-box'>❗ Please tell us your school/college to complete the onboarding.</div>", unsafe_allow_html=True)
 
@@ -98,7 +98,7 @@ def onboarding_page():
                 # Save the response
                 st.session_state.user_onboarding_data[current_user]["us_insurance"] = us_insurance.strip()
                 st.session_state.onboarding_step = 5  # Move to the next step
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.markdown("<div class='st-error-box'>❗ Please tell us your whether you have a student health insurance so that Ally could better serve you.</div>", unsafe_allow_html=True)
 
@@ -116,7 +116,7 @@ def onboarding_page():
                 # Save the response
                 st.session_state.user_onboarding_data[current_user]["us_ssn"] = us_ssn.strip()
                 st.session_state.onboarding_step = 6  # Move to the next step
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.markdown("<div class='st-error-box'>❗ Please tell us your whether you have a Social Security Number so that Ally could better serve you.</div>", unsafe_allow_html=True)
 
@@ -134,7 +134,7 @@ def onboarding_page():
                 # Save the response
                 st.session_state.user_onboarding_data[current_user]["us_place_to_stay"] = us_place_to_stay.strip()
                 st.session_state.onboarding_step = 7  # Move to the next step
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.markdown("<div class='st-error-box'>❗ Ally could help you with searching for rental properties if you let us know.</div>", unsafe_allow_html=True)
 
@@ -156,6 +156,6 @@ def onboarding_page():
                 st.session_state.show_onboarding = False
                 st.session_state.show_signup = False
                 st.session_state.onboarding_step = 1  # Move to the next step
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.markdown("<div class='st-error-box'>❗ Although it's totally optional, please tell us about yourself. 🤗</div>", unsafe_allow_html=True)

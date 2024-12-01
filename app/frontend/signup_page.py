@@ -83,7 +83,7 @@ def signup_page():
             st.session_state.current_user = new_username
             st.session_state.onboarding_step = 1  # Reset to the first onboarding step
             st.session_state.show_onboarding = True  # Trigger onboarding page
-            st.experimental_rerun()  # Redirect to the onboarding page
+            st.rerun()  # Redirect to the onboarding page
 
         else:
             st.markdown("<div class='st-error-box'>❗ Please fill out all fields.</div>", unsafe_allow_html=True)
@@ -96,6 +96,6 @@ def signup_page():
         with col2:  # Place the button in the middle column
             if st.button("Back to Sign In", key="small-backtosignin-button"):
                 show_login()
-                st.experimental_rerun()
+                st.rerun()
 
 
