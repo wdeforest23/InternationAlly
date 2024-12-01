@@ -232,12 +232,12 @@ Over the past several months, the capabilities of foundational Large Language Mo
 
 **Comparison with Gemini 1.5 Pro:**
 <div style="display: flex; justify-content: space-between;">
-  <img src="Documents\Ally_Gemini_Comp_Part_I.png" alt="Ally 1" width="300" />
+  <img src="Documents\Ally_Gemini_Comp_Part_I.png" alt="Ally 1" width="400" />
   <img src="Documents\Gemini_Example_Part_I.png" alt="Gemini 1" width="400" />
 </div>
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="Documents\Ally_Gemini_Comp_Part_II.png" alt="Ally II" width="300" />
+  <img src="Documents\Ally_Gemini_Comp_Part_II.png" alt="Ally II" width="400" />
   <img src="Documents\Gemini_Example_Part_II.png" alt="Gemini II" width="400" />
 </div>
 
