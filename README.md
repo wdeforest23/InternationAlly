@@ -175,7 +175,7 @@ The evaluator was provided with [this structured prompt](evaluation/llm_evaluato
 
 **Evaluation Results**
 
-![Evaluation Results](images/Evaluation_Score_chart.png)
+![Evaluation Results](evaluation/Evaluation_Score_chart.png)
 
 This bar chart illustrates the performance of each feature across the evaluation metrics. Overall, InternationAlly performs consistently well across most metrics, with scores typically ranging between 70 and 100. With high performance across features, Clarity and Tone & Empathy are InternationAlly's forte. However, our evaluation also helped to highlight the areas where InternationAlly still has room for improvement.
 
@@ -204,8 +204,10 @@ Participants were informed about the purpose and consented to provide feedback.
 
 **User Feedback**
 - Users appreciated the personalized assistance and found the app helpful for planning their move.
+  - "The thing I like most about the app is how easy it is to interact with, by simply telling it what I need. I also like how it ask me follow up questions. It really helps because sometimes I forget to include all my requirements."
 - Helped to idenify areas where responses lacked accuracy or completeness, especially in legal and logistical guidance. This helped us to refine prompts and prioritize new data sources to add.
 - Received great suggestions for ways to improve the navigation and visual appeal of the app to enhance the user experience
+ - "I think somehow showing the user the different features of the app (either with sample questions like chatgpt or a separate landing page that explains the function of the app more) could help users make the most of it."
 
 This comprehensive evaluation and testing process allowed us to refine InternationAlly, ensuring it meets the needs of international students by providing accurate, relevant, and empathetic support throughout their transition.
 
@@ -228,22 +230,40 @@ Over the past several months, the capabilities of foundational Large Language Mo
 
 4. **Specialized Focus:** InternationAlly is purpose-built for international students, addressing their specific challenges and needs.  Unlike generic real estate platforms or LLMs that provide broad information, InternationAlly offers specialized support in housing, legal guidance, cultural adaptation, and logistical assistance—all in one place.
 
+**Comparison with Gemini 1.5 Pro:**
+<div style="display: flex; justify-content: space-between;">
+  <img src="Documents\Ally_Gemini_Comp_Part_I.png" alt="Ally 1" width="500" />
+  <img src="Documents\Gemini_Example_Part_I.png" alt="Gemini 1" width="600" />
+</div>
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="Documents\Ally_Gemini_Comp_Part_II.png" alt="Ally II" width="500" />
+  <img src="Documents\Gemini_Example_Part_II.png" alt="Gemini II" width="600" />
+</div>
+
+ InternationAlly's recommendations for studio apartments near NBC Tower reflect a deeper understanding of international students' needs. Unlike general-purpose LLMs, which often offer broad suggestions based on proximity or price, InternationAlly delivers detailed, empathetic, and actionable advice. For example, while Google Gemini also found apartments with ratings and links, InternationAlly highlights factors like transportation, cultural adaptation, and local community benefits. Additionally, the tone is warm and encouraging, acknowledging the user's journey and providing context, such as the importance of proximity to campus and public transit. This tailored approach ensures students feel supported and understood during their housing search.
+
 In summary, while foundational LLMs have become more capable, InternationAlly offers a level of personalization, empathy, and specialized knowledge that sets it apart. Our focus on the unique journey of international students makes us an indispensable ally in navigating the complexities of moving abroad.
 
 
-## 6. Future Work 🚀
+## 6. PropertyPilot's Vision: Future Work and Expansion 🚀
 
-- **PropertyPilot's Vision: Expanded Product Offerings**
-  - Develop additional specialized agents catering to diverse user groups such as first-time homebuyers, recent graduates, and military families.
-  - Create an integrated platform where users can access tailored real estate assistance.
-- **Expand Cities/Schools**:
-  - Extend InternationAlly's services to other major cities and universities across the United States and eventually globally.
-- **Enhanced AI Capabilities**:
-  - Integrate more advanced AI models to improve personalization and accuracy.
-- **Community Features**:
-  - Introduce forums and events to foster community among international students.
-- **Partnerships**:
-  - Collaborate with universities, housing providers, and service companies to offer exclusive benefits to users.
+- **Geographical Expansion**:
+  - Extend InternationAlly's services to major student hubs such as California, New York, and Texas, adopting a school-by-school strategy.
+  - Partner with universities to incorporate school-specific resources like housing guides, campus information, and local amenities.
+  - Plan for eventual global expansion to support international students and professionals worldwide.
+- **Diversified Product Offerings**
+  - Develop additional specialized agents tailored to diverse user groups, including first-time homebuyers, recent graduates, single parents, retirees, and military families.
+  - Build an integrated platform where users can seamlessly access customized real estate assistance, roommate matching, and other tailored features.
+- **Enhanced Personalization and Accessibility**:
+  - Leverage advanced AI models to improve personalization, accuracy, and user engagement.
+  - Introduce multi-lingual support to improve accessibility for non-native speakers and ease transitions for international users.
+- **Community Building**:
+  - Launch forums, events, and networking opportunities to foster connections among users, such as international students, local professionals, and community groups.
+  - Introduce roommate matching and community features to strengthen ties and provide collaborative living solutions.
+- **Strategic Partnerships**:
+  - Collaborate with universities, housing providers, and service companies to offer exclusive benefits, such as discounts, priority services, and tailored resources.
+  - Establish partnerships with relocation services to support users through every step of their move.
 
 <div align="center">
   <img src="Documents/Expansion_Plan.jpg">
