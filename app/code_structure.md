@@ -2,12 +2,6 @@
 
 This document provides an overview of the project's file structure and their purposes.
 
-## Table of Contents
-1. [Main Files](#main-files)
-2. [Frontend](#frontend)
-3. [Prompts](#prompts-folder)
-
----
 
 ### Main Files
 
@@ -27,12 +21,12 @@ This document provides an overview of the project's file structure and their pur
 ### Frontend
 
 Files located in the `app/frontend/` folder:
-- [`app_elements.py`](./app/frontend/app_elements.py): Contains reusable utility functions for the frontend application, such as page toggle and image loading.
-- [`chatapp.py`](./app/frontend/chatapp.py): Defines and manages the main Streamlit chat interface, including chat box functionality and user interactions.
-- [`edit_profile_page.py`](./app/frontend/edit_profile_page.py): Implements the Streamlit page for editing user profile information within the chat interface.
-- [`login_page.py`](./app/frontend/login_page.py): Manages the Streamlit login page, handling user authentication and input validation.
-- [`onboarding_page.py`](./app/frontend/onboarding_page.py): Creates the Streamlit onboarding flow, including loading introductory questions and saving user responses for personalization.
-- [`signup_page.py`](./app/frontend/signup_page.py): Handles the Streamlit sign-up process, facilitating new user registration and data submission.
+- [`app_elements.py`](./frontend/app_elements.py): Contains reusable utility functions for the frontend application, such as page toggle and image loading.
+- [`chatapp.py`](./frontend/chatapp.py): Defines and manages the main Streamlit chat interface, including chat box functionality and user interactions.
+- [`edit_profile_page.py`](./frontend/edit_profile_page.py): Implements the Streamlit page for editing user profile information within the chat interface.
+- [`login_page.py`](./frontend/login_page.py): Manages the Streamlit login page, handling user authentication and input validation.
+- [`onboarding_page.py`](./frontend/onboarding_page.py): Creates the Streamlit onboarding flow, including loading introductory questions and saving user responses for personalization.
+- [`signup_page.py`](./frontend/signup_page.py): Handles the Streamlit sign-up process, facilitating new user registration and data submission.
 
 ---
 
