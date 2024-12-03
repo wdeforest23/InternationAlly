@@ -27,6 +27,7 @@
   - [Evaluation Framework and Results](#evaluation-framework-and-results)
   - [User Testing](#user-testing)
 - [5. Differentiators ✨](#5-differentiators-)
+  - [Comparison with Gemini 1.5 Pro](#comparison-with-gemini-15-pro)
 - [6. Future Work 🚀](#6-propertypilots-vision-future-work-and-expansion-)
 - [7. Conclusion 🎓](#7-conclusion-)
 - [8. Tools Used 🛠️](#8-tools-used-%EF%B8%8F)
@@ -238,7 +239,7 @@ Over the past several months, the capabilities of foundational Large Language Mo
 
 4. **Specialized Focus:** InternationAlly is purpose-built for international students, addressing their specific challenges and needs.  Unlike generic real estate platforms or LLMs that provide broad information, InternationAlly offers specialized support in housing, legal guidance, cultural adaptation, and logistical assistance—all in one place.
 
-**Comparison with Gemini 1.5 Pro:**
+### Comparison with Gemini 1.5 Pro:
 ![Ally 1](documents/Ally_Gemini_Comp_Part_I.png)
 ![Gemini 1](documents/Gemini_Example_Part_I.png)
 
