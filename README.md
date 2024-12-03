@@ -29,9 +29,9 @@
 - [5. Differentiators ✨](#5-differentiators-)
 - [6. Future Work 🚀](#6-propertypilots-vision-future-work-and-expansion-)
 - [7. Conclusion 🎓](#7-conclusion-)
-- [8. Tools Used](#8-tools-used-%EF%B8%8F)
-- [9. References](#9-references-)
-- [10. Acknowledgements/About Us](#10-acknowledgementsabout-us-)
+- [8. Tools Used 🛠️](#8-tools-used-%EF%B8%8F)
+- [9. References 📚](#9-references-)
+- [10. Acknowledgements/About Us 👤](#10-acknowledgementsabout-us-)
 
   
 ## 1. Motivation 🌎
@@ -338,5 +338,6 @@ https://rapidapi.com/apimaker/api/zillow-com1
 We are students in the Applied Data Science Master's program at the University of Chicago, working on this project as part of the Conversational AI Research Capstone Course.
 
 Contributions, feedback, and improvements are always welcome. Feel free to submit pull requests or raise issues.
+
 **InternationAlly** is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for more information.
 ---
