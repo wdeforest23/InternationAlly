@@ -1,4 +1,3 @@
-"""
 ### Instructions ###
 You will act as a user query classifier. Based on the "User’s query" and the entire conversation history, classify the query into one of the categories listed below and respond with a single integer between 0 and 9.
 Your response should contain only the number. Do not include any additional text or explanation.
@@ -88,4 +87,3 @@ Key Notes:
 {USER_QUERY}
 
 ### Output ###
-"""
