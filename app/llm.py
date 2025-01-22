@@ -19,7 +19,7 @@ safety_config = [
     ),
 ]
 
-vertexai.init(project = "adsp-capstone-property-pilot", location = "us-central1")
+vertexai.init(project = "internationally", location = "us-central1")
 model = GenerativeModel("gemini-1.5-flash-002", safety_settings=safety_config)
 
 
